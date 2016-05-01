@@ -1,114 +1,85 @@
-# Projetjava
 import java.util.ArrayList;
 import java.util.HashSet;
-public class Joueur 
-{
-private ArrayList<Integer> possessions;
-private HashSet<Integer> accessibles;
-private int codeCouleur;
 
-public Joueur(ArrayList<Integer> possessions, HashSet<Integer> accessibles, int codeCouleur){
-	this.possessions = possessions;
-	this.accessibles = accessibles;
-	this.codeCouleur = codeCouleur;
-}
+public class Main {
 
-public ArrayList<Integer> getPossessions() {
-	return possessions;
-}
+	public static void main(String[] args) {
+		 Joueur [] listeJoueurs;
+		Couleur [] listeCouleurs = Plateau.initialisationCarreRandom(13,13);
+		ArrayList<Integer> l1= new ArrayList<Integer>();
+		ArrayList<Integer> l2= new ArrayList<Integer>();
+		HashSet<Integer> a1= new HashSet<Integer>();
+		HashSet<Integer> a2= new HashSet<Integer>();
+		
+		l1.add(0);
+		l2.add(1212);
+		listeJoueurs=Joueur.initialisation2J(l1,l2,a1,a2,0,1);
+		Tour.completerAccessibles(listeJoueurs[0], l1, 13, 13);
+		Tour.completerAccessibles(listeJoueurs[1], l2, 13, 13);
+		Fenetre fen= new Fenetre(listeCouleurs, listeJoueurs);
+		
+		Tour.tour(listeJoueurs,listeCouleurs,listeJoueurs[0], fen);
+		
+	}
 
-public int getCouleur() {
-	return codeCouleur;
-}
+	// AI 
 
-public void setCouleur(int nouveau) {
-	 this.codeCouleur=nouveau;
-}
-
-
-public void addPossessions(ArrayList<Integer> ajout) {
-	for(int i=0;i<ajout.size();i++)
+	public static boolean choixCouleur(char coul, int joueur)
 	{
-	 this.possessions.add(ajout.get(i));
+	//Renvoyer true si la couleur choisie existe et n'est pas utilisée par l'autre joueur
+
+
+		char[] all = {'r','o','j','ve','b','vi'};
+
+		if(isIn(coul, all) && !isIn(coul, codeCouleur))
+		{
+			return true;
+		}
+
+	return false;
+
 	}
-}
-public void addAccessibles(ArrayList<Integer> ajout) {
-	for(int i=0;i<ajout.size();i++){
-		this.accessibles.add(ajout.get(i));
-	}
-}
-public void addIntAccessibles(int ajout) {
-	 this.accessibles.add(ajout);
-}
 
-public HashSet<Integer> getAccessibles() {
-	return accessibles;
-}
-public static Joueur [] initialisation2J(ArrayList<Integer> l1, ArrayList<Integer> l2, HashSet<Integer> a1, HashSet<Integer> a2, int c1, int c2){
-	Joueur joueur1= new Joueur(l1,a1,c1);
-	Joueur joueur2= new Joueur(l2,a2,c2);
-	Joueur [] listeJoueurs= new Joueur [2];
-	listeJoueurs[0]=joueur1;
-	listeJoueurs[1]=joueur2;
-	return listeJoueurs;
-}
-
-// AI 
-
-public static boolean choixCouleur(char coul, int joueur)
-{
-//Renvoyer true si la couleur choisie existe et n'est pas utilisée par l'autre joueur
-
-
-	char[] all = {'r','o','j','ve','b','vi'};
-
-	if(isIn(coul, all) && !isIn(coul, codeCouleur))
+	public static boolean isIn(char element, char[] liste)
 	{
-		return true;
-	}
 
-return false;
+	//fonction qui renvoie true si l'élement est dans la liste
 
-}
-
-public static boolean isIn(char element, char[] liste)
-{
-
-//fonction qui renvoie true si l'élement est dans la liste
-
-for(int i=0; i<liste.length; i++)
-{
-	if (liste[i]==element) 
+	for(int i=0; i<liste.length; i++)
 	{
-		return true;
+		if (liste[i]==element) 
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+
 	}
-	else 
+
+	}
+
+	public static boolean isIn(int element, int[] liste)
 	{
-		return false;
-	}
 
-}
+	//fonction qui renvoie true si l element est dans la liste
 
-}
-
-public static boolean isIn(int element, int[] liste)
-{
-
-//fonction qui renvoie true si l'element est dans la liste
-
-for(int i=0; i<liste.length; i++)
-{
-	if (liste[i]==element) 
+	for(int i=0; i<liste.length; i++)
 	{
-		return true;
+		if (liste[i]==element) 
+		{
+			return true;
+		}
+		else 
+		{
+			return false;
+		}
+
 	}
-	else 
-	{
-		return false;
 	}
 
-}
-}
+	}
+
 
 }
-
